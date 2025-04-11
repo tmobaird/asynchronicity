@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+require_relative "../lib/asynchronicity"
+
+config = Asynchronicity::WorkerConfig.new
+Asynchronicity::Worker.new(config).run

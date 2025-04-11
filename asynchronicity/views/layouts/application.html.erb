@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Async - <%= @page_title || "View" %></title>
+    <style>
+    body {
+      font-family: Sans-Serif;
+    }
+    main {
+      margin-left: 10%;
+      margin-right: 10%;
+    }
+
+    table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    td, th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+
+    label {
+      display: block;
+      font-size: 18px;
+    }
+    
+    select, input {
+      display: block;
+      font-size: 18px;
+      padding: 5px;
+      border-radius: 5px;
+      border-width: 1px;
+    }
+
+    code {
+      background-color: #818b981f;
+      padding: 5px;
+      border-radius: 6px;
+    }
+
+    .fieldset {
+      margin-bottom: 1rem;
+    }
+
+    .alert {
+      background-color: #eee77e;
+      color: black;
+      padding: 1rem;
+      text-align: center;
+      border-radius: 5px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .button {
+      padding: 10px;
+      border-radius: 5px;
+      font-size: 16px;
+      background-color: #226de8;
+      color: white;
+      cursor: pointer;
+      text-decoration: inherit;
+    }
+
+    .button:hover {
+      background-color: #5189e7;
+    }
+
+    .link {
+      padding: 10px;
+      border-radius: 5px;
+      font-size: 16px;
+      color: #373737;
+      cursor: pointer;
+    }
+
+    .link:hover {
+      padding: 10px;
+      border-radius: 5px;
+      color: #6c6c6c;
+      cursor: pointer;
+      border: 1px solid #6c6c6c;
+    }
+    </style>
+  </head>
+  <body>
+    <main>
+      <%= yield %>
+    </main>
+  </body>
+</html>

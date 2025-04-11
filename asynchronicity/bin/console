@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+
+require "debug"
+require_relative "../lib/asynchronicity"
+
+@config = Asynchronicity::WorkerConfig.new
+@redis = @config.redis
+
+binding.break

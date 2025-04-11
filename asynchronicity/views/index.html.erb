@@ -1,0 +1,17 @@
+
+<div style="display: flex; align-items: center; justify-content: space-between;">
+  <h1>Asynchronicity</h1>
+  <a href="/jobs/new" class="button">+ Enqueue Work</a>
+</div>
+
+<h3>Queues</h3>
+<% @asynchronicity.queues.each do |_, queue| %>
+  <p><a href="/queues/<%= queue.name %>"><%= queue.name %></a>: <%= queue.count %></p>
+<% end %>
+
+<h3>Available Work</h3>
+<ul>
+  <% @asynchronicity.available_jobs.each do |job| %>
+    <li><%= job.to_s.split("::").last %></li>
+  <% end %>
+</ul>

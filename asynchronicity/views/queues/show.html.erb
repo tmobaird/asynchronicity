@@ -1,0 +1,41 @@
+<a href="/">Back</a>
+<h1>Queue: <%= @queue.name %></h1>
+
+<% if @queue.count == 0 %>
+<div class="alert">
+  Nothing queued here!
+</div>
+<% end %>
+
+<p>Current Size: <%= @queue.count %></p>
+
+<% if @queue.count > 0 %>
+<table>
+  <thead>
+  <tr>
+  <td>Num</td>
+  <td>Job</td>
+  <td>Args</td>
+  <% if @queue.can_have_error? %>
+    <td>Error</td>
+  <% end %>
+  </tr>
+  </thead>
+  <tbody>
+    <% @asynchronicity.enqueued(@queue.name).each_with_index do |job, i| %>
+      <tr>
+      <td><%= i + 1 %></td>
+      <td><%= job.class.to_s %></td>
+      <td><%= job.args %></td>
+      <% if @queue.can_have_error? %>
+        <td>
+        <% if job.error %>
+          <code><%= job.error %></code>
+        <% end %>
+        </td>
+      <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<% end %>

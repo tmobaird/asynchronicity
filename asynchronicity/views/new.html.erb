@@ -1,0 +1,31 @@
+<a href="/">Back</a>
+<h1>Enqueue Work</h1>
+
+<form action="/jobs" method="POST">
+  <div class="fieldset">
+  <label for="work_type">Work Type</label>
+  <select id="work_type" name="work_type">
+    <% @asynchronicity.available_jobs.each do |job| %>
+      <option><%= job %></option>
+    <% end %>
+  </select>
+  </div>
+
+  <div class="fieldset" style="display: flex; gap: 5px;">
+    <div>
+      <label for="args">Arguments</label>
+      <input type="text" id="args" name="args" placeholder="args go here..."/>
+    </div>
+    <div>
+      <label for="args_type">Type</label>
+      <select id="args_type" name="args_type">
+        <option value="plain">Plain</option>
+        <option value="complex">Complex (json)</option>
+      </select>
+    </div>
+  </div>
+
+  <div style="display: flex; gap: 5px;">
+  <input type="submit" value="Run" class="button" />
+  <a href="/" class="link">Cancel</a>
+</form>
