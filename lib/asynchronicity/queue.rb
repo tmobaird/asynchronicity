@@ -10,6 +10,10 @@ module Asynchronicity
       @name = name
     end
 
+    def peek
+      @redis.lrange(@redis_key, 0, 0)
+    end
+
     def consume
       @redis.rpop(@redis_key)
     end

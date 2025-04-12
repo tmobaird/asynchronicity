@@ -1,15 +1,16 @@
 <a href="/">Back</a>
 <h1>Queue: <%= @queue.name %></h1>
+<% enqueued = @asynchronicity.enqueued(@queue.name) %>
 
-<% if @queue.count == 0 %>
+<% if enqueued.count == 0 %>
 <div class="alert">
   Nothing queued here!
 </div>
 <% end %>
 
-<p>Current Size: <%= @queue.count %></p>
+<p>Current Size: <%= enqueued.count %></p>
 
-<% if @queue.count > 0 %>
+<% if enqueued.count > 0 %>
 <table>
   <thead>
   <tr>
@@ -20,12 +21,15 @@
     <td>Error</td>
   <% end %>
   <% if @queue.retry? %>
+    <td>Retry Count</td>
+  <% end %>
+  <% if @queue.retry? %>
     <td>Next Run At</td>
   <% end %>
   </tr>
   </thead>
   <tbody>
-    <% @asynchronicity.enqueued(@queue.name).each_with_index do |job, i| %>
+    <% enqueued.each_with_index do |job, i| %>
       <tr>
       <td><%= i + 1 %></td>
       <td><%= job.class.to_s %></td>
@@ -38,6 +42,9 @@
         </td>
       <% end %>
       <% if @queue.retry? %>
+        <td>
+          <%= job.retry_count %>
+        </td>
         <td>
           <code><%= job.next_run_at %></code>
         </td>

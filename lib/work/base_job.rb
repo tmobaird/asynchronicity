@@ -18,14 +18,26 @@ module Work
       5
     end
 
+    def process?
+      @next_run_at.nil? || Time.now >= @next_run_at
+    end
+
     def to_json
       {
         class: self.class.to_s,
         args: @args,
         error: @error,
         retry_count: @retry_count,
-        next_run_at: @next_run_at&.to_i
+        next_run_at: serialized_next_run_at
       }.to_json
+    end
+
+    def weight
+      serialized_next_run_at
+    end
+
+    def serialized_next_run_at
+      @next_run_at&.to_i
     end
   end
 end

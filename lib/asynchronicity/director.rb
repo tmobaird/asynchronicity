@@ -32,8 +32,10 @@ module Asynchronicity
       end
     end
 
-    def raw_enqueue(queue, job)
-      queue.publish(Serializer.from_job(job))
+    def raw_enqueue(queue, job, weight: nil)
+      job_data = Serializer.from_job(job)
+      publish_inputs = weight ? [weight, job_data] : job_data
+      queue.publish(publish_inputs)
     end
 
     def find_queue(name)
@@ -55,7 +57,7 @@ module Asynchronicity
     end
 
     def retry_queue
-      @retry_queue ||= Queue.new(@redis, @config.namespace, "retry")
+      @retry_queue ||= SortedQueue.new(@redis, @config.namespace, "retry")
     end
 
     def failed_queue

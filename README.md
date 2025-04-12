@@ -10,7 +10,7 @@ for the chance to familiarize myself with ways to use Redis.
 - [x] Consuming w/ plain logging
 - [x] Consuming w/ failed jobs
 - [x] Error message for failures
-- [ ] Consuming w/ retries
+- [x] Consuming w/ retries
 - [ ] Completed Jobs Count
 - [ ] Configuration metrics, delays, etc.
 

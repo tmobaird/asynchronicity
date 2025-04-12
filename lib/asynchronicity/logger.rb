@@ -5,7 +5,7 @@ module Asynchronicity
     end
 
     def log(message)
-      @io.puts("[Asynchronicity]: #{message}")
+      @io.puts("[Asynchronicity] - #{Time.now.strftime("%F%T")}: #{message}")
     end
   end
 end
