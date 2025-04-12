@@ -1,5 +1,8 @@
 # Asynchronicity
 
+This is my test attempt at rebuilding a simple version of Sidekiq
+for the chance to familiarize myself with ways to use Redis.
+
 - [x] Long Poll Redis
 - [x] Support enqueueing via console
 - [x] Consuming w/ doing something
