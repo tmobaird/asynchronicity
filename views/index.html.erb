@@ -1,14 +1,19 @@
-
 <div style="display: flex; align-items: center; justify-content: space-between;">
   <h1>Asynchronicity</h1>
   <a href="/jobs/new" class="button">+ Enqueue Work</a>
 </div>
 
 <h3>Queues</h3>
+<div class="highlights">
 <% @asynchronicity.queues.each do |_, queue| %>
-  <p><a href="/queues/<%= queue.name %>"><%= queue.name %></a>: <%= queue.count %></p>
+  <div style="text-align: center;">
+    <a href="/queues/<%= queue.name %>" class="highlight">
+    <span style="display: block; font-size: 25px; color: #226de8;"><%= queue.count %></span>
+    <span style="display: block; font-size: 18px"><%= queue.name %></span>
+    </a>
+  </div>
 <% end %>
-
+</div>
 <h3>Available Work</h3>
 <ul>
   <% @asynchronicity.available_jobs.each do |job| %>

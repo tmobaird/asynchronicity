@@ -1,3 +1,5 @@
+require "time"
+
 module Asynchronicity
   class Worker
     def initialize(config)
@@ -15,7 +17,7 @@ module Asynchronicity
       Kernel.loop do
         process_next(@queue)
       end
-    rescue SystemExit, Interrupt => e
+    rescue SystemExit, Interrupt => _
       @logger.log("Stopping")
       exit(0)
     end
@@ -23,8 +25,8 @@ module Asynchronicity
     private
 
     def setup
-      return if @redis.exists?("#{@config.namespace}:queue") # && of proper type
-      @redis.del("#{@config.namespace}:queue") # will be automatically created on push
+      return if @redis.exists?("#{@config.namespace}:queue")
+      @redis.del("#{@config.namespace}:queue")
     end
 
     def process_next(queue)
@@ -38,8 +40,13 @@ module Asynchronicity
           job.run
         rescue => e
           @logger.log("#{job.class} failed. Reason #{e.message}")
+
+          job.retry_count += 1
+          job.next_run_at = Time.now.to_i + (30 * job.retry_count) # 30, 60, 90, 120, 150
           job.error = e.message
-          @director.raw_enqueue(@director.failed_queue, job)
+
+          to_send = (job.retry_count < job.allowed_retries) ? @director.retry_queue : @director.failed_queue
+          @director.raw_enqueue(to_send, job)
         end
         @logger.log("#{job.class} done.")
       else

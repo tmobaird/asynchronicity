@@ -1,15 +1,13 @@
 module Work
   class << self
     def work_path
-      File.expand_path File.dirname(__FILE__) + "/work/**/*.rb"  
+      File.expand_path File.dirname(__FILE__) + "/work/**/*.rb"
     end
 
     def job_class(classname)
-      begin
-        Work.const_get(classname)
-      rescue NameError => e
-        nil
-      end
+      Work.const_get(classname)
+    rescue NameError => _
+      nil
     end
   end
 end

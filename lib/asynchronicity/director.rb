@@ -25,15 +25,15 @@ module Asynchronicity
 
       begin
         klass = Work.job_class(classname)
-        job = klass.new(args, nil)
-        raw_enqueue(@main_queue, job)
+        job = klass.new(args)
+        raw_enqueue(main_queue, job)
       rescue NameError => e
         @logger.log("Work class with name #{classname} does not exist. Reason #{e.message}")
       end
     end
 
     def raw_enqueue(queue, job)
-      queue.publish(Serializer.enqueue_format(job.class, job.args, job.error))
+      queue.publish(Serializer.from_job(job))
     end
 
     def find_queue(name)

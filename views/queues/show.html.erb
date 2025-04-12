@@ -19,6 +19,9 @@
   <% if @queue.can_have_error? %>
     <td>Error</td>
   <% end %>
+  <% if @queue.retry? %>
+    <td>Next Run At</td>
+  <% end %>
   </tr>
   </thead>
   <tbody>
@@ -32,6 +35,11 @@
         <% if job.error %>
           <code><%= job.error %></code>
         <% end %>
+        </td>
+      <% end %>
+      <% if @queue.retry? %>
+        <td>
+          <code><%= job.next_run_at %></code>
         </td>
       <% end %>
       </tr>

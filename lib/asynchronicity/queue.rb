@@ -30,6 +30,14 @@ module Asynchronicity
       @name == "main"
     end
 
+    def retry?
+      @name == "retry"
+    end
+
+    def failed?
+      @name == "failed"
+    end
+
     def can_have_error?
       SHOW_ERRORS.include? @name
     end
